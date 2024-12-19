@@ -1,0 +1,76 @@
+
+-- Anomyous Function
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Hello, World!');
+END;
+/
+
+
+-- Procedure 
+CREATE OR REPLACE PROCEDURE greet_user (username VARCHAR2) IS
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Hello, ' || username || '!');
+END;
+/
+-- Execute the procedure
+EXECUTE greet_user('Gokul');
+
+
+-- Function 
+CREATE OR REPLACE FUNCTION add_numbers (a NUMBER, b NUMBER) RETURN NUMBER IS
+BEGIN
+    RETURN a + b;
+END;
+/
+-- Using the function
+SELECT add_numbers(10, 20) AS result FROM DUAL;
+
+
+-- Trigger
+CREATE OR REPLACE TRIGGER before_insert_trigger
+BEFORE INSERT ONStudent
+FOR EACH ROW
+BEGIN
+    :NEW.created_at := SYSDATE;
+END;
+/
+
+-- Packages
+CREATE OR REPLACE PACKAGE math_operations IS
+    FUNCTION multiply(a NUMBER, b NUMBER) RETURN NUMBER;
+    PROCEDURE greet(name VARCHAR2);
+END math_operations;
+/
+
+CREATE OR REPLACE PACKAGE BODY math_operations IS
+    FUNCTION multiply(a NUMBER, b NUMBER) RETURN NUMBER IS
+    BEGIN
+        RETURN a * b;
+    END multiply;
+
+    PROCEDURE greet(name VARCHAR2) IS
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE('Hello, ' || name || '!');
+    END greet;
+END math_operations;
+/
+
+-- Using the package
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(math_operations.multiply(5, 6));
+    math_operations.greet('John');
+END;
+/
+
+-- Exception
+BEGIN
+    DECLARE
+        division_result NUMBER;
+    BEGIN
+        division_result := 10 / 0; -- This will raise an exception
+    EXCEPTION
+        WHEN ZERO_DIVIDE THEN
+            DBMS_OUTPUT.PUT_LINE('Cannot divide by zero!');
+    END;
+END;
+/
