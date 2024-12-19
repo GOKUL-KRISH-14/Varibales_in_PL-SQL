@@ -58,7 +58,7 @@ END math_operations;
 -- Using the package
 BEGIN
     DBMS_OUTPUT.PUT_LINE(math_operations.multiply(5, 6));
-    math_operations.greet('John');
+    math_operations.greet('Gokul');
 END;
 /
 
